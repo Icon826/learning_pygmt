@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PyGMT — 地圖派對開張啦！</title>
+  <meta name="description" content="一頁式幽默有趣的 PyGMT 介紹：為什麼用、怎麼裝、如何畫出第一張帥氣地圖，還有常見地雷排雷指南。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; /* 夜空底色 */
+      --fg:#eef2ff; /* 文字 */
+      --muted:#a5b4fc;
+      --accent:#7dd3fc;
+      --card:#0f172a;
+      --glow: 0 0 30px rgba(125,211,252,.45), 0 0 60px rgba(165,180,252,.25);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(1200px 600px at 80% -10%, rgba(125,211,252,.12), transparent),
+                     radial-gradient(1200px 600px at 10% 10%, rgba(165,180,252,.1), transparent),
+                     var(--bg);
+         color:var(--fg);font-family:Nunito, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{opacity:.9;text-decoration:underline}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;padding:40px 0}
+    .hero{background:linear-gradient(135deg, rgba(125,211,252,.08), rgba(165,180,252,.06));border:1px solid rgba(125,211,252,.2);border-radius:20px;padding:28px 28px 32px;box-shadow:var(--glow)}
+    h1{font-size:clamp(32px, 6vw, 56px);line-height:1.05;margin:0 0 12px;font-weight:800}
+    .lead{font-size:clamp(16px, 2.6vw, 22px);opacity:.95}
+    .tag{display:inline-block;margin-top:14px;padding:6px 12px;background:rgba(125,211,252,.15);border:1px solid rgba(125,211,252,.3);border-radius:999px;font-weight:700;color:#cffafe;}
+    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+    .btn{border:1px solid rgba(165,180,252,.35);background:rgba(15,23,42,.6);padding:12px 16px;border-radius:12px;color:var(--fg);font-weight:700}
+    .btn.primary{background:linear-gradient(135deg, #38bdf8, #818cf8);border:none;color:#0b1220}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--glow)}
+    .globe{aspect-ratio:1/1;border-radius:50%;border:1px dashed rgba(165,180,252,.35);display:grid;place-items:center;position:relative;overflow:hidden}
+    .globe::after{content:"";position:absolute;inset:-25%;background:radial-gradient(closest-side, rgba(255,255,255,.06), transparent 60%);transform:rotate(25deg)}
+    .globe span{font-size:72px;filter:drop-shadow(0 10px 30px rgba(56,189,248,.5))}
+
+    section{margin:56px 0}
+    h2{font-size:clamp(26px, 3.2vw, 36px);margin:0 0 16px}
+    p{line-height:1.8;font-size:18px}
+
+    .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px}
+    @media (max-width:900px){header{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+
+    .card{background:linear-gradient(180deg, rgba(15,23,42,.8), rgba(15,23,42,.6));border:1px solid rgba(125,211,252,.18);padding:20px;border-radius:16px}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0}
+
+    pre{background:#0a0f1a;border:1px solid rgba(125,211,252,.18);padding:16px;border-radius:12px;overflow:auto}
+    code{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:14px}
+
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(165,180,252,.18);border:1px solid rgba(125,211,252,.2);font-weight:700}
+    .row{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+    @media (max-width:900px){.row{grid-template-columns:1fr}}
+
+    .faq details{background:rgba(15,23,42,.6);border:1px solid rgba(125,211,252,.18);padding:16px;border-radius:12px}
+    .faq details+details{margin-top:12px}
+    .faq summary{cursor:pointer;font-weight:800}
+
+    footer{opacity:.8;font-size:14px;padding:32px 0 18px;border-top:1px dashed rgba(165,180,252,.25)}
+    .tiny{opacity:.75}
+
+    .copy-btn{float:right;margin-top:-6px;margin-right:-6px;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.4);color:#e0f2fe;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+    .copy-btn:active{transform:translateY(1px)}
+    .check{display:none;margin-left:8px;font-size:12px;color:#86efac}
+
+    .badge{display:inline-block;font-size:12px;padding:4px 8px;border-radius:6px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);color:#bbf7d0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="hero">
+        <span class="tag">PyGMT · Python 版本的 GMT —— 不是 Gin, Martini & Tonic🍸</span>
+        <h1>把世界「畫」進來：<br/>PyGMT 讓地圖製作像泡麵一樣快</h1>
+        <p class="lead">PyGMT 是 <strong>GMT</strong>（Generic Mapping Tools）的 Python 介面，
+          既保留 GMT 的強大製圖能力，又擁有 Python 的友善生態。論速度：幾行就能畫。論顏值：出圖就能交作業。論心情：少踩坑，多享受。</p>
+        <div class="cta">
+          <a class="btn primary" href="#install">🚀 三招安裝走起</a>
+          <a class="btn" href="#quickstart">🗺️ 2 分鐘完成第一張地圖</a>
+          <a class="btn" href="#why">🤔 為什麼是 PyGMT？</a>
+        </div>
+      </div>
+      <div class="globe" aria-hidden="true">
+        <span>🌎</span>
+      </div>
+    </header>
+
+    <section id="why">
+      <h2>為什麼選 PyGMT？（除了你想快速變帥）</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>📦 高品質地圖配色與投影</h3>
+          <p>內建投影多到懷疑人生，配色表（cpt）比你的衣櫃還齊全。海陸高程、海溝山脈、全都能一鍵上色。</p>
+        </div>
+        <div class="card">
+          <h3>🧩 與科學資料說話</h3>
+          <p>不只畫圖，還能做網格運算、等高線、地形陰影、地震火山標注……地科人最懂地科人。</p>
+        </div>
+        <div class="card">
+          <h3>🐍 Pythonic 工作流程</h3>
+          <p>和 <span class="pill">xarray</span>、<span class="pill">pandas</span>、<span class="pill">NumPy</span> 好朋友們牽手合作，從資料處理一路到高顏值輸出。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>安裝三連招 <span class="badge">新手也能 3 分鐘上手</span></h2>
+      <div class="row">
+        <div>
+          <ol>
+            <li><strong>推薦（conda）：</strong> 有耐心、少眼淚。
+              <pre><button class="copy-btn" data-copy="conda install pygmt -c conda-forge">複製</button><code>conda install pygmt -c conda-forge</code></pre>
+            </li>
+            <li><strong>pip + 系統 GMT：</strong> 你要先裝好 GMT（可用系統套件或安裝包）。
+              <pre><button class="copy-btn" data-copy="pip install pygmt">複製</button><code>pip install pygmt</code></pre>
+            </li>
+            <li><strong>確認版本：</strong> 成功就像拉麵煮好了會香。
+              <pre><button class="copy-btn" data-copy="python -c \"import pygmt, sys; print('PyGMT', pygmt.__version__)\"">複製</button><code>python -c "import pygmt, sys; print('PyGMT', pygmt.__version__)"</code></pre>
+            </li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>⚠️ 小心地雷</h3>
+          <ul>
+            <li>Windows 若遇到 <code>GMTCLibError</code>：請優先使用 <strong>conda-forge</strong> 安裝。</li>
+            <li>macOS M 系列：確保終端機架構與環境一致（arm64 vs x86_64）。</li>
+            <li>Linux：記得提供 <code>libgmt</code> 給 PyGMT 找到，conda 一把梭。</li>
+          </ul>
+          <p class="tiny">（翻譯：裝不起來時，先用 conda，再檢查 PATH，最後深呼吸。）</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <h2>2 分鐘完成你的第一張地圖</h2>
+      <p>以下示範：畫出台灣周邊地形與海深。<span class="tiny">（實際需已安裝好 GMT 資料集）</span></p>
+      <pre><button class="copy-btn" data-copy="import pygmt\nregion = [118, 123.5, 20.5, 26.8]  # Taiwan box\nfig = pygmt.Figure()\nfig.coast(region=region, projection='M12c', frame=True, land='gray90', water='lightblue')\nfig.grdimage('@earth_relief_03m', shading=True)\nfig.coast(shorelines='1/0.6p,black', borders='1/0.5p,gray40')\nfig.colorbar(frame='af+l\"elevation (m)\"')\nfig.show()">複製</button><code>import pygmt
+region = [118, 123.5, 20.5, 26.8]  # Taiwan box
+fig = pygmt.Figure()
+fig.coast(region=region, projection='M12c', frame=True, land='gray90', water='lightblue')
+fig.grdimage('@earth_relief_03m', shading=True)
+fig.coast(shorelines='1/0.6p,black', borders='1/0.5p,gray40')
+fig.colorbar(frame='af+l"elevation (m)"')
+fig.show()</code></pre>
+      <p>出圖後如果內心發出「欸這也太漂亮」的聲音，恭喜你加入 PyGMT 教派。😎</p>
+    </section>
+
+    <section>
+      <h2>技能樹（你可以做到的事）</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>🗺️ 地形陰影</h3>
+          <p>用 <code>grdgradient</code> 做光照效果，讓山脈顯壯烈、期末報告顯專業。</p>
+        </div>
+        <div class="card">
+          <h3>🌋 火山／🌏 地震</h3>
+          <p><code>plot</code> 一下就能把點位畫上去；顏色形狀隨心換，像換桌布一樣輕鬆。</p>
+        </div>
+        <div class="card">
+          <h3>🧭 投影切換</h3>
+          <p>墨卡托、蘭伯特、極區投影…想怎麼歪就怎麼歪（是地圖歪，不是做人歪）。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>和朋友們比較一下（友善比較，不吵架）</h2>
+      <div class="row">
+        <div class="card">
+          <h3>PyGMT vs Matplotlib</h3>
+          <ul>
+            <li><strong>PyGMT：</strong> 地圖是強項、投影海量、樣式優雅。</li>
+            <li><strong>Matplotlib：</strong> 通用繪圖王者，但做投影與高階地圖時要靠很多外掛。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>PyGMT vs Cartopy</h3>
+          <ul>
+            <li><strong>PyGMT：</strong> 站在 GMT 巨人肩膀上，地理配色、地形處理一條龍。</li>
+            <li><strong>Cartopy：</strong> 與 Matplotlib 深度整合，客製自由度高，入門略多設定。</li>
+          </ul>
+        </div>
+      </div>
+      <p class="tiny">※ 其實都很好用，工具選擇像點飲料：今天想要「加地形陰影」就點 PyGMT，明天要簡單折線圖就點 Matplotlib。</p>
+    </section>
+
+    <section class="faq">
+      <h2>FAQ（Frequently Asked 口頭禪）</h2>
+      <details>
+        <summary>Q1. 為什麼我 <code>pip install pygmt</code> 之後還是錯？</summary>
+        <p>多半因為系統找不到 GMT。最快解法：<strong>用 conda-forge 安裝</strong>（它會把依賴都準備好）。</p>
+      </details>
+      <details>
+        <summary>Q2. 我要離線資料（例如地形網格）怎麼辦？</summary>
+        <p>第一次使用 <code>@earth_relief_*</code> 會自動下載並快取。若在校內離線環境，可事先在可連網環境下載快取檔帶進去。</p>
+      </details>
+      <details>
+        <summary>Q3. 我要超高畫質輸出？</summary>
+        <p>用 <code>fig.savefig("map.png", dpi=600)</code> 或 <code>pdf/svg</code> 矢量格式，投影片印刷都夠用。</p>
+      </details>
+      <details>
+        <summary>Q4. 我不是地科人，也能用嗎？</summary>
+        <p>能！只要你想在世界上畫點什麼，PyGMT 都能幫忙。旅遊地圖、教學示意、研究圖版，通通行。</p>
+      </details>
+    </section>
+
+    <section>
+      <h2>再進階一點點：色表 & 陰影</h2>
+      <pre><button class="copy-btn" data-copy="import pygmt\nfig = pygmt.Figure()\nfig.grdimage('@earth_relief_10m', region='g', projection='W15c', shading=True, cmap='geo')\nfig.coast(shorelines='1/0.3p,white', frame='afg')\nfig.colorbar(frame='af+l\"topography (m)\"')\nfig.savefig('world_topo.png')">複製</button><code>import pygmt
+fig = pygmt.Figure()
+fig.grdimage('@earth_relief_10m', region='g', projection='W15c', shading=True, cmap='geo')
+fig.coast(shorelines='1/0.3p,white', frame='afg')
+fig.colorbar(frame='af+l"topography (m)"')
+fig.savefig('world_topo.png')</code></pre>
+      <p class="tiny">世界很大，圖檔也可以很大，硬碟請自斟酌。</p>
+    </section>
+
+    <section>
+      <h2>延伸閱讀（真的想變強的那種）</h2>
+      <ul>
+        <li>PyGMT 官方文件（Examples 寫得像食譜一樣）：<a href="https://www.pygmt.org/" target="_blank" rel="noreferrer noopener">pygmt.org</a></li>
+        <li>GMT 官方 Cookbook（硬核黨入口）：<a href="https://docs.generic-mapping-tools.org/" target="_blank" rel="noreferrer noopener">GMT Docs</a></li>
+        <li>PyGMT Gallery（看圖學習，抄（學）就會）：<a href="https://www.pygmt.org/latest/gallery/" target="_blank" rel="noreferrer noopener">Gallery</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© 2025 PyGMT Fun Page · 做圖愉快，<span class="tiny">期末更愉快</span>。 | Made with ♥️ and a lot of <code>fig.coast()</code></p>
+    </footer>
+  </div>
+
+  <script>
+    // Copy buttons
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy');
+        try{
+          await navigator.clipboard.writeText(text);
+          const ok = document.createElement('span');
+          ok.className = 'check';
+          ok.textContent = '✓ 已複製';
+          btn.parentElement.appendChild(ok);
+          ok.style.display='inline-block';
+          setTimeout(()=> ok.remove(), 1400);
+        }catch(err){
+          alert('複製失敗，請手動選取文字 (╯°□°)╯︵ ┻━┻');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
