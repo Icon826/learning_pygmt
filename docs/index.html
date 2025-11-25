@@ -4,27 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PyGMT — 地圖派對開張啦！</title>
-  <meta name="description" content="一頁式幽默有趣的 PyGMT 介紹：為什麼用、怎麼裝、如何畫出第一張帥氣地圖，還有常見地雷排雷指南。">
+  <meta name="description" content="幽默有趣的 PyGMT 介紹：為什麼用、怎麼裝、快速上手、常見地雷、投影速查、作品集、影片精華。支援 docs/assert/ 圖片結構。" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0b1220; --fg:#eef2ff; --muted:#a5b4fc; --accent:#7dd3fc; --card:#0f172a;
-      --glow: 0 0 30px rgba(125,211,252,.45), 0 0 60px rgba(165,180,252,.25);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(1200px 600px at 80% -10%, rgba(125,211,252,.12), transparent),
-                     radial-gradient(1200px 600px at 10% 10%, rgba(165,180,252,.1), transparent),
-                     var(--bg);
-         color:var(--fg);font-family:Nunito, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
-    a{color:var(--accent);text-decoration:none} a:hover{opacity:.9;text-decoration:underline}
+    :root{ --bg:#0b1220; --fg:#eef2ff; --muted:#a5b4fc; --accent:#7dd3fc; --card:#0f172a; --glow: 0 0 30px rgba(125,211,252,.45), 0 0 60px rgba(165,180,252,.25);} *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(1200px 600px at 80% -10%, rgba(125,211,252,.12), transparent),radial-gradient(1200px 600px at 10% 10%, rgba(165,180,252,.1), transparent),var(--bg);color:var(--fg);font-family:Nunito, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline;opacity:.9}
     .wrap{max-width:1100px;margin:0 auto;padding:28px}
     header{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;padding:40px 0}
     .hero{background:linear-gradient(135deg, rgba(125,211,252,.08), rgba(165,180,252,.06));border:1px solid rgba(125,211,252,.2);border-radius:20px;padding:28px 28px 32px;box-shadow:var(--glow)}
     h1{font-size:clamp(32px, 6vw, 56px);line-height:1.05;margin:0 0 12px;font-weight:800}
     .lead{font-size:clamp(16px, 2.6vw, 22px);opacity:.95}
-    .tag{display:inline-block;margin-top:14px;padding:6px 12px;background:rgba(125,211,252,.15);border:1px solid rgba(125,211,252,.3);border-radius:999px;font-weight:700;color:#cffafe;}
+    .tag{display:inline-block;margin-top:14px;padding:6px 12px;background:rgba(125,211,252,.15);border:1px solid rgba(125,211,252,.3);border-radius:999px;font-weight:700;color:#cffafe}
     .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
     .btn{border:1px solid rgba(165,180,252,.35);background:rgba(15,23,42,.6);padding:12px 16px;border-radius:12px;color:var(--fg);font-weight:700}
     .btn.primary{background:linear-gradient(135deg, #38bdf8, #818cf8);border:none;color:#0b1220}
@@ -36,22 +29,19 @@
     h2{font-size:clamp(26px, 3.2vw, 36px);margin:0 0 16px}
     p{line-height:1.8;font-size:18px}
     .grid{display:grid;grid-template-columns:repeat(3, 1fr);gap:18px}
-    @media (max-width:900px){header{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+    @media (max-width:900px){header{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
     .card{background:linear-gradient(180deg, rgba(15,23,42,.8), rgba(15,23,42,.6));border:1px solid rgba(125,211,252,.18);padding:20px;border-radius:16px}
-    .card h3{margin:0 0 8px}.card p{margin:0}
     pre{background:#0a0f1a;border:1px solid rgba(125,211,252,.18);padding:16px;border-radius:12px;overflow:auto}
     code{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:14px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(165,180,252,.18);border:1px solid rgba(125,211,252,.2);font-weight:700}
     .row{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
-    @media (max-width:900px){.row{grid-template-columns:1fr}}
     .faq details{background:rgba(15,23,42,.6);border:1px solid rgba(125,211,252,.18);padding:16px;border-radius:12px}
     .faq details+details{margin-top:12px}
     .faq summary{cursor:pointer;font-weight:800}
     footer{opacity:.8;font-size:14px;padding:32px 0 18px;border-top:1px dashed rgba(165,180,252,.25)}
     .tiny{opacity:.75}
     .copy-btn{float:right;margin-top:-6px;margin-right:-6px;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.4);color:#e0f2fe;border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
-    .copy-btn:active{transform:translateY(1px)}
-    .check{display:none;margin-left:8px;font-size:12px;color:#86efac}
+    .copy-btn:active{transform:translateY(1px)} .check{display:none;margin-left:8px;font-size:12px;color:#86efac}
     .badge{display:inline-block;font-size:12px;padding:4px 8px;border-radius:6px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.35);color:#bbf7d0}
   </style>
 </head>
@@ -61,10 +51,11 @@
       <div class="hero">
         <span class="tag">PyGMT · Python 版本的 GMT —— 不是 Gin, Martini & Tonic🍸</span>
         <h1>把世界「畫」進來：<br/>PyGMT 讓地圖製作像泡麵一樣快</h1>
-        <p class="lead">PyGMT 是 <strong>GMT</strong> 的 Python 介面，既保留 GMT 的強大製圖能力，又擁有 Python 的友善生態。論速度：幾行就能畫。論顏值：出圖就能交作業。論心情：少踩坑，多享受。</p>
+        <p class="lead">PyGMT 是 <strong>GMT</strong>（Generic Mapping Tools）的 Python 介面，既保留 GMT 的強大製圖能力，又擁有 Python 的友善生態。論速度：幾行就能畫。論顏值：出圖就能交作業。論心情：少踩坑，多享受。</p>
         <div class="cta">
           <a class="btn primary" href="#install">🚀 三招安裝走起</a>
           <a class="btn" href="#quickstart">🗺️ 2 分鐘完成第一張地圖</a>
+          <a class="btn" href="#workflow">🧭 典型工作流程</a>
           <a class="btn" href="#video">📺 看影片快速上手</a>
         </div>
       </div>
@@ -86,22 +77,22 @@
         <div>
           <ol>
             <li><strong>推薦（conda）：</strong>
-              <pre><button class="copy-btn" data-copy="conda install pygmt -c conda-forge">複製</button><code>conda install pygmt -c conda-forge</code></pre>
+<pre><button class="copy-btn" data-copy="conda install pygmt -c conda-forge">複製</button><code>conda install pygmt -c conda-forge</code></pre>
             </li>
             <li><strong>pip + 系統 GMT：</strong>
-              <pre><button class="copy-btn" data-copy="pip install pygmt">複製</button><code>pip install pygmt</code></pre>
+<pre><button class="copy-btn" data-copy="pip install pygmt">複製</button><code>pip install pygmt</code></pre>
             </li>
             <li><strong>確認版本：</strong>
-              <pre><button class="copy-btn" data-copy="python -c &quot;import pygmt, sys; print('PyGMT', pygmt.__version__)&quot;">複製</button><code>python -c "import pygmt, sys; print('PyGMT', pygmt.__version__)"</code></pre>
+<pre><button class="copy-btn" data-copy="python -c \"import pygmt, sys; print('PyGMT', pygmt.__version__)\"">複製</button><code>python -c "import pygmt, sys; print('PyGMT', pygmt.__version__)"</code></pre>
             </li>
           </ol>
         </div>
         <div class="card">
           <h3>⚠️ 小心地雷</h3>
           <ul>
-            <li>Windows 若遇 <code>GMTCLibError</code>：請優先使用 <strong>conda-forge</strong> 安裝。</li>
+            <li>Windows 若遇 <code>GMTCLibError</code>：優先使用 <strong>conda-forge</strong> 安裝。</li>
             <li>macOS M 系列：確保終端機架構與環境一致（arm64 / x86_64）。</li>
-            <li>Linux：確保 <code>libgmt</code> 能被 PyGMT 找到；conda 一把梭。</li>
+            <li>Linux：確保 <code>libgmt</code> 可被找到；conda 一把梭。</li>
           </ul>
           <p class="tiny">（翻譯：裝不起來時，先用 conda，再檢查 PATH，最後深呼吸。）</p>
         </div>
@@ -111,24 +102,41 @@
     <section id="quickstart">
       <h2>2 分鐘完成你的第一張地圖</h2>
       <p>示範：台灣周邊地形與海深。</p>
-      <pre><button class="copy-btn" data-copy="import pygmt
+<pre><button class="copy-btn" data-copy="import pygmt
 region = [118, 123.5, 20.5, 26.8]
 fig = pygmt.Figure()
 fig.coast(region=region, projection='M12c', frame=True, land='gray90', water='lightblue')
 fig.grdimage('@earth_relief_03m', shading=True)
 fig.coast(shorelines='1/0.6p,black', borders='1/0.5p,gray40')
-fig.colorbar(frame='af+l&quot;elevation (m)&quot;')
+fig.colorbar(frame='af+l\"elevation (m)\"')
 fig.show()">複製</button><code>import pygmt
 region = [118, 123.5, 20.5, 26.8]
 fig = pygmt.Figure()
 fig.coast(region=region, projection='M12c', frame=True, land='gray90', water='lightblue')
 fig.grdimage('@earth_relief_03m', shading=True)
 fig.coast(shorelines='1/0.6p,black', borders='1/0.5p,gray40')
-fig.colorbar(frame='af+l"elevation (m)')
+fig.colorbar(frame='af+l"elevation (m)"')
 fig.show()</code></pre>
     </section>
 
-    <!-- 你的圖片展示：docs/assert/pygmt_1.png -->
+    <section id="workflow">
+      <h2>🧭 典型工作流程（從資料到高顏值輸出）</h2>
+      <ol>
+        <li><strong>取得資料：</strong>網格（如 <code>@earth_relief_*</code>）、點線面（CSV/GeoJSON/Shapefile）。</li>
+        <li><strong>讀取/處理：</strong>用 <code>pandas</code>/<code>xarray</code>/<code>geopandas</code> 清資料、投影、切範圍。</li>
+        <li><strong>建圖：</strong><code>Figure()</code> → <code>basemap/coast</code>（底圖）→ <code>grdimage/plot/text</code>（圖層）→ <code>colorbar</code>/<code>legend</code>（標示）。</li>
+        <li><strong>輸出：</strong><code>fig.savefig('map.png', dpi=600)</code> 或 <code>pdf/svg</code>。</li>
+      </ol>
+      <div class="card"><strong>目錄建議：</strong>
+<pre><code>docs/
+  index.html
+  assert/
+    pygmt_1.png  ← 你提供的圖片
+    world_demo.png  ← 影片延伸範例輸出
+</code></pre>
+      </div>
+    </section>
+
     <section id="gallery">
       <h2>作品集：全球海岸線示意（Winkel Tripel）</h2>
       <p>下圖以 <code>basemap(region="g", projection="W15c")</code> 搭配 <code>coast(shorelines=True)</code> 畫出全球海岸線。請將圖片放在 <code>docs/assert/pygmt_1.png</code>。</p>
@@ -136,9 +144,8 @@ fig.show()</code></pre>
         <img src="./assert/pygmt_1.png" alt="PyGMT global coast map (Winkel Tripel)" style="width:100%;border-radius:12px;border:1px solid rgba(125,180,252,.25)" />
         <figcaption class="tiny">圖 1　Winkel Tripel 投影 + 海岸線。</figcaption>
       </figure>
-
       <h3>產生這張圖的最小可執行程式碼</h3>
-      <pre><button class="copy-btn" data-copy="import pygmt
+<pre><button class="copy-btn" data-copy="import pygmt
 fig = pygmt.Figure()
 fig.basemap(region='g', projection='W15c', frame=True)
 fig.coast(shorelines=True)
@@ -149,28 +156,22 @@ fig.coast(shorelines=True)
 fig.show()</code></pre>
     </section>
 
-    <!-- 新增：影片與重點整理 -->
     <section id="video">
       <h2>📺 快速認識 PyGMT：影片精華</h2>
       <div class="card">
         <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:1px solid rgba(125,180,252,.25)">
-          <iframe src="https://www.youtube.com/embed/4iPnITXrxVU"
-                  title="Quick Introduction to PyGMT - 2022"
-                  allowfullscreen
-                  style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>
+          <iframe src="https://www.youtube.com/embed/4iPnITXrxVU" title="Quick Introduction to PyGMT - 2022" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>
         </div>
-        <p class="tiny" style="margin-top:8px">影片來源：The Generic Mapping Tools 官方頻道的 <em>Quick Introduction to PyGMT</em>（2022）。</p>
+        <p class="tiny" style="margin-top:8px">影片：Quick Introduction to PyGMT（官方頻道）。</p>
       </div>
-
       <h3>影片重點（超濃縮）</h3>
       <ul>
-        <li><strong>PyGMT 的定位：</strong>以 Python 介面串接 GMT 核心，做地理/地球科學的處理與出版等級圖件。:contentReference[oaicite:0]{index=0}</li>
-        <li><strong>最小工作流程：</strong><code>Figure()</code> → <code>basemap/coast</code> → <code>show()/savefig()</code>（影片亦示範快速出圖）。:contentReference[oaicite:1]{index=1}</li>
-        <li><strong>學習資源：</strong>GMT/PyGMT 官方頻道與 EGU 短課有更完整教學與案例。:contentReference[oaicite:2]{index=2}</li>
+        <li><strong>定位：</strong>以 Python 介面串接 GMT 核心，快速產出出版等級地圖。</li>
+        <li><strong>最小流程：</strong><code>Figure()</code> → <code>basemap/coast</code> → <code>show()/savefig()</code>。</li>
+        <li><strong>投影與區域：</strong>用 <code>projection</code>、<code>region</code> 控制（全球用 <code>region="g"</code>）。</li>
       </ul>
-
       <h3>跟著影片再玩一個版本（羅賓森投影）</h3>
-      <pre><button class="copy-btn" data-copy="import pygmt
+<pre><button class="copy-btn" data-copy="import pygmt
 fig = pygmt.Figure()
 fig.basemap(region='g', projection='R15c', frame='afg')
 fig.coast(land='lightgray', water='lightblue', shorelines='1/0.5p,black')
@@ -179,9 +180,19 @@ print('Saved to ./assert/world_demo.png')">複製</button><code>import pygmt
 fig = pygmt.Figure()
 fig.basemap(region="g", projection="R15c", frame="afg")
 fig.coast(land="lightgray", water="lightblue", shorelines="1/0.5p,black")
-fig.savefig("./assert/world_demo.png")
-print("Saved to ./assert/world_demo.png")</code></pre>
-      <p class="tiny">把輸出檔放進 <code>docs/assert/</code> 就能在頁面展示更多成果。更多入門影片可看 AGU 簡介與 EGU 系列。:contentReference[oaicite:3]{index=3}</p>
+fig.savefig('./assert/world_demo.png')
+print('Saved to ./assert/world_demo.png')</code></pre>
+      <p class="tiny">把輸出檔放進 <code>docs/assert/</code> 就能在頁面展示更多成果。</p>
+</section>
+
+    <section id="projections">
+      <h2>投影速查表（常見 4 種）</h2>
+      <div class="grid">
+        <div class="card"><h3>Winkel Tripel（<code>W</code>）</h3><p>世界地圖好朋友；本頁「作品集」示範。</p></div>
+        <div class="card"><h3>Robinson（<code>R</code>）</h3><p>視覺均衡；在「影片延伸」示範。</p></div>
+        <div class="card"><h3>Mercator（<code>M</code>）</h3><p>低緯 OK；高緯會胖。</p></div>
+      </div>
+      <p class="tiny">更多投影：請查 GMT/ PyGMT 文件；投影代碼可直接用在 <code>projection</code> 參數。</p>
     </section>
 
     <section class="faq">
@@ -196,6 +207,24 @@ print("Saved to ./assert/world_demo.png")</code></pre>
     </footer>
   </div>
 
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy');
+        try{
+          await navigator.clipboard.writeText(text);
+          const ok = document.createElement('span');
+          ok.className = 'check';
+          ok.textContent = '✓ 已複製';
+          btn.parentElement.appendChild(ok);
+          ok.style.display='inline-block';
+          setTimeout(()=> ok.remove(), 1400);
+        }catch(err){
+          alert('複製失敗，請手動選取文字 (╯°□°)╯︵ ┻━┻');
+        }
+      });
+    });
+  </script>
   <script>
     // Copy buttons
     document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -214,6 +243,6 @@ print("Saved to ./assert/world_demo.png")</code></pre>
         }
       });
     });
-  </script>
+</script>
 </body>
 </html>
