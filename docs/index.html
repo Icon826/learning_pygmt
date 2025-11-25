@@ -228,6 +228,36 @@ fig.savefig('world_topo.png')</code></pre>
       </ul>
     </section>
 
+    <section id="gallery">
+      <h2>作品集：全球海岸線示意（Winkel Tripel）</h2>
+      <p>下面這張圖是用 <code>fig.basemap</code> + <code>fig.coast</code> 畫出的全球海岸線。<strong>專案結構</strong>：你的 <code>index.html</code> 在 <code>docs/</code>，圖片請放在 <code>docs/assert/</code>，因此本文使用相對路徑 <code>./assert/pygmt_1.png</code>。</p>
+      <figure class="card">
+        <img src="./assert/pygmt_1.png" alt="PyGMT global coast map (Winkel Tripel)" style="width:100%;border-radius:12px;border:1px solid rgba(125,180,252,.25)" />
+        <figcaption class="tiny">圖 1　全球投影（Winkel Tripel, <code>W15c</code>）與海岸線（<code>shorelines=True</code>）。如果你看到南美洲很苗條，代表你投影成功了 😄。</figcaption>
+      </figure>
+
+      <h3>產生這張圖的最小可執行程式碼</h3>
+      <p>把這段貼到你的 Python 執行環境（建議使用 <code>conda-forge</code> 安裝的 PyGMT），就能產生與上圖一致的全球海岸線：</p>
+      <pre><button class="copy-btn" data-copy="import pygmt
+fig = pygmt.Figure()
+fig.basemap(region=\"g\", projection=\"W15c\", frame=True)
+fig.coast(shorelines=True)
+fig.show()">複製</button><code>import pygmt
+fig = pygmt.Figure()
+fig.basemap(region="g", projection="W15c", frame=True)
+fig.coast(shorelines=True)
+fig.show()</code></pre>
+
+      <details class="tiny"><summary>補充：這段程式碼到底做了什麼？</summary>
+        <ul>
+          <li><code>region="g"</code>：全世界（global）。</li>
+          <li><code>projection="W15c"</code>：Winkel Tripel 投影，輸出寬 15 公分（或對應畫布單位）。</li>
+          <li><code>frame=True</code>：自動產生座標邊框與刻度。</li>
+          <li><code>shorelines=True</code>：繪出海岸線（預設輪廓粗細）。想更明顯可試 <code>shorelines="1/0.6p,black"</code>。</li>
+        </ul>
+      </details>
+    </section>
+
     <footer>
       <p>© 2025 PyGMT Fun Page · 做圖愉快，<span class="tiny">期末更愉快</span>。 | Made with ♥️ and a lot of <code>fig.coast()</code></p>
     </footer>
