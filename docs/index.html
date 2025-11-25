@@ -258,6 +258,33 @@ fig.show()</code></pre>
       </details>
     </section>
 
+    <section id="video">
+      <h2>📺 快速認識 PyGMT：影片精華</h2>
+      <div class="card">
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;border:1px solid rgba(125,180,252,.25)">
+          <iframe src="https://www.youtube.com/embed/4iPnITXrxVU" title="Quick Introduction to PyGMT" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p class="tiny" style="margin-top:8px">影片：Quick Introduction to PyGMT（2022）。感謝 GMT 團隊製作的入門影片。</p>
+      </div>
+
+      <h3>我們從影片中抓到的重點</h3>
+      <ul>
+        <li><strong>PyGMT 的定位：</strong>以 Python 介面串接 GMT 核心，能快速做出出版等級的地圖與科學視覺化。</li>
+        <li><strong>最小工作流程：</strong>建立 <code>Figure()</code> → 設定 <code>basemap/coast</code> → <code>show()</code>/<code>savefig()</code>。</li>
+        <li><strong>投影與區域：</strong>透過 <code>projection</code> 與 <code>region</code> 參數切換（全球可用 <code>region="g"</code>）。</li>
+        <li><strong>延伸閱讀：</strong>若對投影感興趣，可試試 Winkel Tripel（在本頁前段也示範了）。</li>
+      </ul>
+
+      <h3>跟著影片再玩一個版本</h3>
+      <pre><button class="copy-btn" data-copy="import pygmt\nfig = pygmt.Figure()\nfig.basemap(region=\"g\", projection=\"R15c\", frame=\"afg\")\nfig.coast(land=\"lightgray\", water=\"lightblue\", shorelines=\"1/0.5p,black\")\nfig.savefig(\"./assert/world_demo.png\")\nprint(\"Saved to ./assert/world_demo.png\")">複製</button><code>import pygmt
+fig = pygmt.Figure()
+fig.basemap(region="g", projection="R15c", frame="afg")
+fig.coast(land="lightgray", water="lightblue", shorelines="1/0.5p,black")
+fig.savefig("./assert/world_demo.png")
+print("Saved to ./assert/world_demo.png")</code></pre>
+      <p class="tiny">把輸出檔案放進 <code>docs/assert/</code>，你就能在網頁上展示更多成果。</p>
+    </section>
+
     <footer>
       <p>© 2025 PyGMT Fun Page · 做圖愉快，<span class="tiny">期末更愉快</span>。 | Made with ♥️ and a lot of <code>fig.coast()</code></p>
     </footer>
